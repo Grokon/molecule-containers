@@ -1,7 +1,6 @@
 FROM docker.io/debian:bullseye-slim
 
-LABEL image.description="Debian 11 Container for Molecule"
-LABEL image.source=https://github.com/Grokon/molecule-container
+LABEL org.opencontainers.image.description="Debian 11 Container for Molecule"
 
 # Install packages
 RUN apt-get update \
