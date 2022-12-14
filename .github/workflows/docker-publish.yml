@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         os: [debian]
-        version: [bullseye]
+        version: [bullseye, buster]
 
     steps:
       - name: Checkout repository
@@ -76,7 +76,8 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@v3
         with:
-          context: ${{ matrix.os }}/${{ matrix.version }}
+          context: ${{ matrix.os }}/
+          args: DEBIAN_VERSION=${{ matrix.version }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
