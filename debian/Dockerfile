@@ -1,8 +1,8 @@
-ARG DEBIAN_VERSION=${DEBIAN_VERSION:-buster}
+ARG DEBIAN_VERSION=${DEBIAN_VERSION:-trixie}
 
 FROM docker.io/debian:${DEBIAN_VERSION}-slim
 
-LABEL org.opencontainers.image.description="Debian 11 Container for Molecule"
+LABEL org.opencontainers.image.description="Debian 13 Container for Molecule"
 
 # Install packages
 RUN apt-get update \
@@ -18,8 +18,7 @@ RUN apt-get update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
-    && pip3 install --upgrade pip \
-    && pip3 install ansible-core ansible-lint cryptography \
+    && pip3 install ansible-core ansible-lint cryptography --break-system-packages \
     && mkdir -p /etc/ansible \
     && echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts \
     && rm -f /lib/systemd/system/multi-user.target.wants/* \
