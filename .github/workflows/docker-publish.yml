@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         os: [debian]
-        version: [bullseye, buster]
+        version: [bullseye, buster, trixie]
 
     steps:
       - name: Checkout repository
