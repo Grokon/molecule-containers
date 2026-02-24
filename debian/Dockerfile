@@ -4,6 +4,8 @@ FROM docker.io/debian:${DEBIAN_VERSION}-slim
 
 LABEL org.opencontainers.image.description="Debian 13 Container for Molecule"
 
+ENV PATH="/root/.local/bin:${PATH}"
+
 # Install packages
 RUN apt-get update \
     && apt-get -y install --no-install-recommends \
@@ -15,10 +17,11 @@ RUN apt-get update \
       python3-dev \
       python3-setuptools \
       python3-wheel  \
+      pipx \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
-    && pip3 install ansible-core ansible-lint cryptography --break-system-packages \
+    && pipx install ansible-core ansible-lint \
     && mkdir -p /etc/ansible \
     && echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts \
     && rm -f /lib/systemd/system/multi-user.target.wants/* \
